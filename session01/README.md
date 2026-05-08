@@ -1,22 +1,24 @@
-VOH-W01-T01  ·  Bootstrap Your Engineering Workstation — WSL2 Ubuntu Environment Setup
+### VOH-W01-T01  ·  Bootstrap Your Engineering Workstation — WSL2 Ubuntu Environment Setup
 
-Week 1  ·  Day 1  ·  Linux Foundation & Workstation Setup
+### Week 1  ·  Day 1  · 
+ ### Linux Foundation & Workstation Setup
 🏢 Business Scenario	You have just joined the VOH Platform Engineering team as a Junior Cloud Engineer. Your team lead has raised a ticket: every engineer must have a standardised Ubuntu workstation configured before being granted access to production systems. You must provision your local WSL2 environment to match the team standard.
 
-💥 Business Impact	Without a correctly configured workstation, you cannot contribute to any engineering tasks, cannot access shared GitHub repositories, and will block other onboarding activities. This is a BLOCKER for all subsequent tickets.
+### 💥 Business Impact	
+Without a correctly configured workstation, you cannot contribute to any engineering tasks, cannot access shared GitHub repositories, and will block other onboarding activities. This is a BLOCKER for all subsequent tickets.
 
-⏱ SLA Expectation	
+### ⏱ SLA Expectation	
 Resolution within 3 hours. 
 Workstation must pass all validation checks before EOD.
 
-🔧 Required Tools	
+### 🔧 Required Tools	
 WSL2, Ubuntu 22.04 LTS, Git, GitHub CLI, Vim/Nano, curl, wget, tree, htop, net-tools, Python 3
 
-⏳ Estimated Duration	2–3 hours
+### ⏳ Estimated Duration	2–3 hours
 
   ● SEVERITY: HIGH  
 
-🎯 Technical Objectives
+### 🎯 Technical Objectives
 •	Install and configure WSL2 with Ubuntu 22.04 LTS on Windows
 •	Configure a professional Bash shell environment (.bashrc, aliases, prompt)
 •	Install and verify all core engineering CLI tools
@@ -24,13 +26,13 @@ WSL2, Ubuntu 22.04 LTS, Git, GitHub CLI, Vim/Nano, curl, wget, tree, htop, net-t
 •	Configure Git global identity and sign your first commit
 •	Document your workstation setup in a professional README.md
 
-📋 Prerequisites
+### 📋 Prerequisites
 •	Windows 10 version 2004+ or Windows 11
 •	Administrator access to your Windows machine
 •	A GitHub account (free tier)
 •	Internet connection
 
-🔩 Engineering Tasks
+### 🔩 Engineering Tasks
 1.	Enable WSL2 feature via PowerShell as Administrator and reboot
 2.	Install Ubuntu 22.04 LTS from Microsoft Store and complete first-run setup
 3.	Run full system update: sudo apt update && sudo apt upgrade -y
@@ -42,7 +44,7 @@ WSL2, Ubuntu 22.04 LTS, Git, GitHub CLI, Vim/Nano, curl, wget, tree, htop, net-t
 9.	Create your first GitHub repository: voh-engineering-journal
 10.	Write a README.md documenting your workstation setup and push to GitHub
 
-💻 Step-by-Step Commands
+### 💻 Step-by-Step Commands
 # === STEP 1: Enable WSL2 (run in PowerShell as Admin) ===
 wsl --install
 wsl --set-default-version 2
@@ -88,7 +90,7 @@ git push -u origin main
 # === VALIDATION ===
 git --version && python3 --version && gh --version && ssh -T git@github.com
 
-✅ Validation Steps
+### ✅ Validation Steps
 •	Run: uname -a — should show Linux kernel with Ubuntu 22.04
 •	Run: git --version — should show git 2.x.x
 •	Run: ssh -T git@github.com — should show 'Hi USERNAME! You've successfully authenticated'
@@ -97,7 +99,7 @@ git --version && python3 --version && gh --version && ssh -T git@github.com
 •	Check GitHub: voh-engineering-journal repo exists with README.md
 •	Confirm .bashrc has been customised with aliases and PS1 prompt
 
-🔥 Troubleshooting Scenarios
+### 🔥 Troubleshooting Scenarios
 Problem: WSL2 command not found after running wsl --install
 Fix: Your Windows version may not support WSL2. Check version with winver. Upgrade to Windows 10 2004+ or enable via Control Panel → Programs → Turn Windows features on or off → Windows Subsystem for Linux.
 
@@ -110,7 +112,7 @@ Fix: WSL2 DNS may be broken. Run: echo 'nameserver 8.8.8.8' | sudo tee /etc/reso
 Problem: git push fails with 'remote: Support for password authentication was removed'
 Fix: GitHub removed password auth in 2021. You must use SSH (recommended) or a Personal Access Token. Verify your remote is using SSH: git remote -v. If it shows https://, change it: git remote set-url origin git@github.com:USERNAME/REPO.git
 
-📦 Expected Deliverables
+### 📦 Expected Deliverables
 •	Fully configured WSL2 Ubuntu 22.04 environment with all tools installed
 •	SSH key pair generated and public key uploaded to GitHub
 •	Git globally configured with correct identity
@@ -118,20 +120,20 @@ Fix: GitHub removed password auth in 2021. You must use SSH (recommended) or a P
 •	README.md documenting the workstation setup process
 •	Screenshot showing successful: ssh -T git@github.com
 
-🐙 GitHub Deliverables
+### 🐙 GitHub Deliverables
 •	Repository: voh-engineering-journal (public)
 •	File: README.md — Workstation Setup Guide
 •	File: screenshots/ssh-auth-success.png
 •	File: dotfiles/.bashrc — your custom shell config
 •	Commit message format: VOH-W01-T01: [description]
 
-📝 Documentation Requirements
+### 📝 Documentation Requirements
 README.md must include: System specs, tools installed with versions, installation commands used
 Document any errors encountered and how you resolved them
 Include a 'Lessons Learned' section
 Include version output screenshots for git, python3, and gh
 
-🏗 Architecture Diagram Requirement
+### 🏗 Architecture Diagram Requirement
 Draw a simple diagram showing: Windows → WSL2 → Ubuntu 22.04 → Git → SSH → GitHub. Include the network flow for SSH authentication. Use draw.io (free) or ASCII art in the README.
 🎤 Interview Questions
 What is WSL2 and how does it differ from WSL1? What changed in the virtualisation model?
@@ -140,21 +142,21 @@ What is the difference between git config --global and --local? When would you u
 Why did GitHub deprecate password authentication? What replaced it?
 What does eval $(ssh-agent -s) do and why is it required?
 
-⚠️ Common Mistakes to Avoid
+### ⚠️ Common Mistakes to Avoid
 Using RSA 2048-bit keys instead of ED25519 — ED25519 is faster and more secure
 Committing with wrong git identity — always verify git config --list before first commit
 Leaving SSH keys unprotected with no passphrase in shared/professional environments
 Not configuring .bashrc — a bare prompt slows down all future work
 Using HTTPS remotes instead of SSH — SSH is required for automated workflows
 
-🚀 Stretch Goals
+### 🚀 Stretch Goals
 •	Configure Zsh with Oh-My-Zsh and the Powerlevel10k theme for an advanced shell experience
 •	Set up Windows Terminal with custom colour scheme and WSL2 profile as default
 •	Configure SSH config file (~/.ssh/config) with shortcuts for GitHub and future cloud hosts
 •	Write a bootstrap.sh script that automates the entire workstation setup (idempotent)
 •	Add pre-commit hooks to your repo to enforce conventional commit message format
 
-🌍 Real-World Engineering Relevance
+### 🌍 Real-World Engineering Relevance
 Every cloud engineering team requires standardised developer environments. At companies like Atlassian, HashiCorp, and AWS, onboarding checklists are identical to this ticket. Automating environment setup (your stretch goal) is how senior engineers eliminate onboarding friction and ensure consistency across distributed teams.
 
  
