@@ -93,9 +93,6 @@ grep 'sudo' /etc/group
 # === SYSTEM INFO SCRIPT ===
 cat > ~/voh-labs/week01/scripts/system-info.sh << 'EOF'
 #!/bin/bash
-echo '=============================='
-echo '  VOH System Information'
-echo '=============================='
 echo "Hostname:   $(hostname)"
 echo "OS:         $(lsb_release -d | cut -f2)"
 echo "Kernel:     $(uname -r)"
@@ -103,7 +100,6 @@ echo "CPU Cores:  $(nproc)"
 echo "RAM Total:  $(free -h | awk '/^Mem:/{print $2}')"
 echo "Disk Used:  $(df -h / | awk 'NR==2{print $5}')"
 echo "Uptime:     $(uptime -p)"
-echo '=============================='
 EOF
 chmod +x ~/voh-labs/week01/scripts/system-info.sh
 ./~/voh-labs/week01/scripts/system-info.sh
