@@ -1,10 +1,10 @@
 # VOH Academy — Phase 1: Foundation
-## Session 04: Text Editors — Writing Config Files Like an Engineer
+## Session 02B: Text Editors — Writing Config Files Like an Engineer
 
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 04: Text Editors in the Terminal](https://www.youtube.com/@VOHAcademy)
+> **YouTube:** [VOH Academy — Session 02B: Text Editors in the Terminal](https://www.youtube.com/@VOHAcademy)
 > Watch the video first, then return here to do the lab.
 
 ---
@@ -13,7 +13,7 @@
 
 Your manager is pleased with your file system work. A new ticket lands in your queue:
 
-> *"We need you to update a config file on one of our test servers. You will not have a desktop GUI — just a terminal. This means you need to know how to edit files directly in the terminal. Learn nano first (it is beginner-friendly), then get comfortable with vim basics (it is what you will find on most production servers). Then write your first real config file using what you have learned."*
+> *"We need you to update a config file on one of our test servers. You will not have a desktop GUI, just a terminal. This means you need to know how to edit files directly in the terminal. Learn nano first (it is beginner-friendly), then get comfortable with vim basics (it is what you will find on most production servers). Then write your first real config file using what you have learned."*
 
 ---
 
@@ -30,7 +30,7 @@ Your manager is pleased with your file system work. A new ticket lands in your q
 
 #### Why Not Just Use a GUI Editor?
 
-When you connect to a remote server (like an AWS EC2 instance), you connect over SSH — a terminal connection. There is no desktop, no File Explorer, no right-click. You get a command line and nothing else.
+When you connect to a remote server (like an AWS EC2 instance), you connect over SSH, a terminal connection. There is no desktop, no File Explorer, no right-click. You get a command line and nothing else.
 
 Every cloud engineer needs to edit files from the terminal. It is not optional.
 
@@ -71,7 +71,7 @@ The most important vim commands:
 Open your WSL terminal and move to your workspace:
 
 ```bash
-cd ~/voh-academy/projects/voh-infra/configs/
+cd ~/voh-cloud-prog/projects/voh-infra/configs/
 ```
 
 ---
@@ -88,7 +88,7 @@ You are now inside nano. You will see the file contents and at the bottom, a lis
 
 Use the arrow keys to move your cursor to the end of the file.
 
-Add this content (type it out, do not copy-paste — typing builds muscle memory):
+Add this content (type it out, do not copy-paste, typing builds muscle memory):
 
 ```
 # VOH Server Configuration
@@ -207,10 +207,10 @@ Your manager has sent you the specification for a new nginx web server configura
 
 Create the file:
 ```bash
-nano ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
+nano ~/voh-cloud-prog/projects/voh-infra/configs/nginx-voh.conf
 ```
 
-Type out this entire configuration. Read each line as you type it — every line means something:
+Type out this entire configuration. Read each line as you type it, every line means something:
 
 ```nginx
 # VOH Academy — nginx configuration
@@ -245,12 +245,12 @@ Save and exit: `Ctrl + O`, `Enter`, `Ctrl + X`.
 
 Verify the file:
 ```bash
-cat ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
+cat ~/voh-cloud-prog/projects/voh-infra/configs/nginx-voh.conf
 ```
 
 Count the number of lines in the file:
 ```bash
-wc -l ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
+wc -l ~/voh-cloud-prog/projects/voh-infra/configs/nginx-voh.conf
 ```
 
 ---
@@ -260,22 +260,22 @@ wc -l ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
 Search for all lines containing the word `log` in your nginx config:
 
 ```bash
-grep "log" ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
+grep "log" ~/voh-cloud-prog/projects/voh-infra/configs/nginx-voh.conf
 ```
 
 Search case-insensitively:
 ```bash
-grep -i "server" ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
+grep -i "server" ~/voh-cloud-prog/projects/voh-infra/configs/nginx-voh.conf
 ```
 
 Show line numbers with results:
 ```bash
-grep -n "location" ~/voh-academy/projects/voh-infra/configs/nginx-voh.conf
+grep -n "location" ~/voh-cloud-prog/projects/voh-infra/configs/nginx-voh.conf
 ```
 
 Search across all files in the configs directory:
 ```bash
-grep -r "voh" ~/voh-academy/projects/voh-infra/configs/
+grep -r "voh" ~/voh-cloud-prog/projects/voh-infra/configs/
 ```
 
 `grep` is one of the most used tools in a cloud engineer's toolkit. You will use it constantly to search logs and config files.
@@ -296,11 +296,11 @@ These shortcuts work in any terminal and will save you hours over time. Practice
 | `Up arrow` | Recall previous command |
 | `Tab` | Auto-complete a filename or command |
 | `!!` | Repeat the last command |
-| `!$` | Use the last argument of the previous command |
+                      
 
 Practice tab completion:
 ```bash
-cat ~/voh-academy/projects/voh-infra/configs/ngi
+cat ~/voh-cloud-prog/projects/voh-infra/configs/ngi
 ```
 Press `Tab` and it should complete to `nginx-voh.conf`.
 

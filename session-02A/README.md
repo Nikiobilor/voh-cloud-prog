@@ -1,10 +1,10 @@
 # VOH Academy — Phase 1: Foundation
-## Session 03: The Linux File System — Everything Is a File
+## Session 02A: The Linux File System — Everything Is a File
 
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 03: The Linux File System](https://www.youtube.com/@VOHAcademy)
+> **YouTube:** [VOH Academy — Session 02A: The Linux File System](https://youtu.be/j5-lbOXK2ic)
 > Watch the video first, then return here to do the lab.
 
 ---
@@ -60,18 +60,18 @@ As a cloud engineer, you will spend most of your time in:
 
 An **absolute path** starts from root `/` and gives the full location:
 ```
-/home/nwachi/voh-academy/notes.txt
+/home/nwachi/voh-cloud-prog/notes.txt
 ```
 
 A **relative path** starts from wherever you currently are:
 ```
-voh-academy/notes.txt        (if you are in /home/nwachi)
-../voh-academy/notes.txt     (.. means "go up one level")
+voh-cloud-prog/notes.txt        (if you are in /home/nwachi)
+../voh-cloud-prog/notes.txt     (.. means "go up one level")
 ```
 
 The `~` symbol is a shortcut for your home directory:
 ```
-~/voh-academy/notes.txt  =  /home/nwachi/voh-academy/notes.txt
+~/voh-cloud-prog/notes.txt  =  /home/nwachi/voh-cloud-prog/notes.txt
 ```
 
 ---
@@ -81,7 +81,7 @@ The `~` symbol is a shortcut for your home directory:
 Open your WSL terminal and move into your workspace:
 
 ```bash
-cd ~/voh-academy
+cd ~/voh-cloud-prog
 ```
 
 ---
@@ -121,10 +121,10 @@ pwd
 
 Your manager has asked you to create a standard folder structure that VOH uses when setting up a new project. Follow the specification below exactly.
 
-Create this structure inside `~/voh-academy/`:
+Create this structure inside `~/voh-cloud-prog/`:
 
 ```
-~/voh-academy/
+~/voh-cloud-prog/
 └── projects/
     └── voh-infra/
         ├── configs/
@@ -135,17 +135,17 @@ Create this structure inside `~/voh-academy/`:
 
 Create the top level:
 ```bash
-mkdir -p ~/voh-academy/projects/voh-infra/configs
-mkdir -p ~/voh-academy/projects/voh-infra/logs
-mkdir -p ~/voh-academy/projects/voh-infra/scripts
-mkdir -p ~/voh-academy/projects/voh-infra/docs
+mkdir -p ~/voh-cloud-prog/session-02A/projects/voh-infra/configs
+mkdir -p ~/voh-cloud-prog/session-02A/projects/voh-infra/logs
+mkdir -p ~/voh-cloud-prog/session-02A/projects/voh-infra/scripts
+mkdir -p ~/voh-cloud-prog/session-02A/projects/voh-infra/docs
 ```
 
 The `-p` flag tells `mkdir` to create all parent directories along the path if they do not already exist.
 
 Confirm the structure was created:
 ```bash
-ls ~/voh-academy/projects/voh-infra/
+ls ~/voh-cloud-prog/session-02A/projects/voh-infra/
 ```
 
 You should see: `configs  docs  logs  scripts`
@@ -157,7 +157,7 @@ You should see: `configs  docs  logs  scripts`
 Create a project readme file inside `docs/`:
 
 ```bash
-touch ~/voh-academy/projects/voh-infra/docs/README.md
+touch ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/README.md
 ```
 
 `touch` creates an empty file. If the file already exists, it updates the timestamp.
@@ -165,7 +165,7 @@ touch ~/voh-academy/projects/voh-infra/docs/README.md
 Now write content into the file using `echo`:
 
 ```bash
-echo "# VOH Infrastructure Project" > ~/voh-academy/projects/voh-infra/docs/README.md
+echo "# VOH Infrastructure Project" > ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/README.md
 ```
 
 The `>` symbol redirects the output of `echo` into the file, replacing its contents.
@@ -173,15 +173,15 @@ The `>` symbol redirects the output of `echo` into the file, replacing its conte
 Add a second line using `>>` (which appends instead of replacing):
 
 ```bash
-echo "Managed by the VOH Cloud Team." >> ~/voh-academy/projects/voh-infra/docs/README.md
-echo "Created: $(date)" >> ~/voh-academy/projects/voh-infra/docs/README.md
+echo "Managed by the VOH Cloud Team." >> ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/README.md
+echo "Created: $(date)" >> ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/README.md
 ```
 
 `$(date)` runs the `date` command and puts its output inline. This is called command substitution.
 
 Read the file back:
 ```bash
-cat ~/voh-academy/projects/voh-infra/docs/README.md
+cat ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/README.md
 ```
 
 You should see all three lines.
@@ -193,36 +193,36 @@ You should see all three lines.
 Create a draft config file:
 
 ```bash
-echo "# Server config draft" > ~/voh-academy/projects/voh-infra/configs/server.conf.draft
+echo "# Server config draft" > ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/server.conf.draft
 ```
 
 Copy it to create a final version:
 ```bash
-cp ~/voh-academy/projects/voh-infra/configs/server.conf.draft \
-   ~/voh-academy/projects/voh-infra/configs/server.conf
+cp ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/server.conf.draft \
+   ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/server.conf
 ```
 
 Confirm both files exist:
 ```bash
-ls ~/voh-academy/projects/voh-infra/configs/
+ls ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/
 ```
 
 Now move the draft to the logs folder (as an archive):
 ```bash
-mv ~/voh-academy/projects/voh-infra/configs/server.conf.draft \
-   ~/voh-academy/projects/voh-infra/logs/server.conf.draft.bak
+mv ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/server.conf.draft \
+   ~/voh-cloud-prog/session-02A/projects/voh-infra/logs/server.conf.draft.bak
 ```
 
 Confirm the move:
 ```bash
-ls ~/voh-academy/projects/voh-infra/configs/
-ls ~/voh-academy/projects/voh-infra/logs/
+ls ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/
+ls ~/voh-cloud-prog/session-02A/projects/voh-infra/logs/
 ```
 
 `mv` also renames files. Rename the final config:
 ```bash
-mv ~/voh-academy/projects/voh-infra/configs/server.conf \
-   ~/voh-academy/projects/voh-infra/configs/voh-server.conf
+mv ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/server.conf \
+   ~/voh-cloud-prog/session-02A/projects/voh-infra/configs/voh-server.conf
 ```
 
 ---
@@ -232,14 +232,14 @@ mv ~/voh-academy/projects/voh-infra/configs/server.conf \
 Create a longer file to practice reading:
 
 ```bash
-cat > ~/voh-academy/projects/voh-infra/docs/notes.txt << 'EOF'
+cat > ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/notes.txt << 'EOF'
 Session 03 Notes
 =================
 The Linux file system starts at /.
 Everything is a file in Linux.
 Configuration files live in /etc.
 Logs live in /var/log.
-My workspace is in ~/voh-academy.
+My workspace is in ~/voh-cloud-prog.
 The cat command reads files.
 The less command reads files one page at a time.
 EOF
@@ -247,44 +247,44 @@ EOF
 
 Read the whole file at once:
 ```bash
-cat ~/voh-academy/projects/voh-infra/docs/notes.txt
+cat ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/notes.txt
 ```
 
 Read it one page at a time (useful for long files):
 ```bash
-less ~/voh-academy/projects/voh-infra/docs/notes.txt
+less ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/notes.txt
 ```
 
 Inside `less`: press `Space` to go forward, `b` to go back, `q` to quit.
 
 Read only the first 3 lines:
 ```bash
-head -3 ~/voh-academy/projects/voh-infra/docs/notes.txt
+head -3 ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/notes.txt
 ```
 
 Read only the last 3 lines:
 ```bash
-tail -3 ~/voh-academy/projects/voh-infra/docs/notes.txt
+tail -3 ~/voh-cloud-prog/session-02A/projects/voh-infra/docs/notes.txt
 ```
 
 ---
 
 #### Part 6 — Find Files
 
-Find all `.md` files inside your voh-academy folder:
+Find all `.md` files inside your voh-cloud-prog folder:
 
 ```bash
-find ~/voh-academy -name "*.md"
+find ~/voh-cloud-prog -name "*.md"
 ```
 
 Find all files modified in the last 10 minutes:
 ```bash
-find ~/voh-academy -mmin -10
+find ~/voh-cloud-prog -mmin -10
 ```
 
 Find a file by partial name:
 ```bash
-find ~/voh-academy -name "*server*"
+find ~/voh-cloud-prog -name "*server*"
 ```
 
 ---
@@ -293,12 +293,12 @@ find ~/voh-academy -name "*server*"
 
 Delete the backup file you created:
 ```bash
-rm ~/voh-academy/projects/voh-infra/logs/server.conf.draft.bak
+rm ~/voh-cloud-prog/session-02A/projects/voh-infra/logs/server.conf.draft.bak
 ```
 
 Confirm it is gone:
 ```bash
-ls ~/voh-academy/projects/voh-infra/logs/
+ls ~/voh-cloud-prog/session-02A/projects/voh-infra/logs/
 ```
 
 **Important:** Linux has no recycle bin. When you `rm` a file, it is gone. Always double-check before deleting. Use `ls` to confirm the path before you run `rm`.
@@ -340,7 +340,7 @@ Before moving on, confirm you can do all of the following without looking at the
 
 ### What Is Coming Next
 
-Session 04: Text editors in the terminal — how to open, edit, and save files using `nano` and an introduction to `vim`. You will also write your first real configuration file.
+Session 04: Text editors in the terminal, how to open, edit, and save files using `nano` and an introduction to `vim`. You will also write your first real configuration file.
 
 ---
 
