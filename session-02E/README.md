@@ -4,7 +4,7 @@
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 06: Phase 1 Capstone](https://www.youtube.com/@VOHAcademy)
+> **YouTube:** [VOH Academy — Session 02E: Phase 1 Capstone](https://youtu.be/_bHDgkhffVk)
 > Watch the video first, then return here to do the lab.
 
 ---
@@ -13,9 +13,9 @@
 
 End of your first week at VOH. Your manager calls a brief review:
 
-> *"You have made it through the foundation week. You know how the file system works, you can edit config files, you understand your shell. Now we are going to test all of it at once. Your task is to set up a local engineering environment from scratch — the same way every new engineer at VOH gets their machine ready on day one. You will also write your first shell script to automate part of the setup. When you are done, you will have a working local environment and a script you can run on any new machine to recreate it."*
+> *"You have made it through the foundation week. You know how the file system works, you can edit config files, you understand your shell. Now we are going to test all of it at once. Your task is to set up a local engineering environment from scratch, the same way every new engineer at VOH gets their machine ready on day one. You will also write your first shell script to automate part of the setup. When you are done, you will have a working local environment and a script you can run on any new machine to recreate it."*
 
-This session has no new concepts. It is entirely a practical lab that tests everything from Sessions 01–05.
+This session has no new concepts. It is entirely a practical lab that tests everything you have done so far.
 
 ---
 
@@ -23,10 +23,10 @@ This session has no new concepts. It is entirely a practical lab that tests ever
 
 By the end of this session you will have:
 
-1. A clean, organised workspace structure under `~/voh-academy/`
+1. A clean, organised workspace structure under `~/voh-cloud-prog/`
 2. A fully configured `.bashrc` with your aliases and variables
 3. A working `setup.sh` script that automates the environment setup
-4. A `session-06-report.md` file documenting what you did and what you learned
+4. A `session-report.md` file documenting what you did and what you learned
 
 ---
 
@@ -55,24 +55,24 @@ alias
 
 List your current workspace structure:
 ```bash
-ls -la ~/voh-academy/
+ls -la ~/voh-cloud-prog/
 ```
 
-Check your `.bashrc` is set up from Session 05:
+Check your `.bashrc` is set up from previous Session:
 ```bash
 cat ~/.bashrc | grep -A 30 "VOH Academy"
 ```
 
-If your `.bashrc` customisations from Session 05 are missing, go back and complete Session 05 before continuing.
+If your `.bashrc` customisations from previous Session are missing, go back and complete the previous Session before continuing.
 
 ---
 
 #### Part 2 — Build the Full Workspace Structure
 
-Your final workspace should look like this:
+Your final workspace should look something like this:
 
 ```
-~/voh-academy/
+~/voh-cloud-prog/
 ├── projects/
 │   └── voh-infra/
 │       ├── configs/
@@ -89,18 +89,14 @@ Your final workspace should look like this:
 
 Create any directories that are missing:
 ```bash
-mkdir -p ~/voh-academy/labs/phase-01
-mkdir -p ~/voh-academy/labs/phase-02
-mkdir -p ~/voh-academy/labs/phase-03
-mkdir -p ~/voh-academy/notes
-mkdir -p ~/voh-academy/bin
+mkdir -p ~/voh-cloud-prog/bin
 ```
 
 The `bin/` folder is where you will put your own scripts so you can run them by name from anywhere.
 
 Verify the full structure:
 ```bash
-find ~/voh-academy -type d | sort
+find ~/voh-cloud-prog -type d | sort
 ```
 
 ---
@@ -111,7 +107,8 @@ You are going to write a script called `voh-setup.sh` that automates the workspa
 
 Create the script:
 ```bash
-nano ~/voh-academy/scripts/voh-setup.sh
+mkdir  ~/voh-cloud-prog/session-02E/scripts
+nano ~/voh-cloud-prog/session-02E/scripts/voh-setup.sh
 ```
 
 Type this out in full. Read every line as you type it:
@@ -119,74 +116,87 @@ Type this out in full. Read every line as you type it:
 ```bash
 #!/bin/bash
 # ============================================================
-# VOH Academy — Local Environment Setup Script
-# Description: Sets up the standard VOH Academy workspace
-# Author: Your Name
-# Date: $(date +%Y-%m-%d)
+# VOH Academy — System Setup Script
+# Purpose: Update system + install/verify the standard VOH toolset
+# Safe to re-run anytime — skips what's already installed/up to date
 # ============================================================
 
-set -e
+set -euo pipefail
 
-# Colours for output
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${YELLOW}VOH Academy — Environment Setup${NC}"
+log()      { echo -e "${GREEN}[OK]${NC}   $1"; }
+log_skip() { echo -e "${YELLOW}[SKIP]${NC} $1"; }
+log_err()  { echo -e "${RED}[FAIL]${NC} $1"; }
+
+echo -e "${YELLOW}VOH Academy — System Setup${NC}"
 echo "================================="
 
-# Create workspace directories
-echo "Creating workspace structure..."
-
-DIRS=(
-    "$HOME/voh-academy/projects/voh-infra/configs"
-    "$HOME/voh-academy/projects/voh-infra/logs"
-    "$HOME/voh-academy/projects/voh-infra/scripts"
-    "$HOME/voh-academy/projects/voh-infra/docs"
-    "$HOME/voh-academy/labs/phase-01"
-    "$HOME/voh-academy/labs/phase-02"
-    "$HOME/voh-academy/labs/phase-03"
-    "$HOME/voh-academy/notes"
-    "$HOME/voh-academy/bin"
-)
-
-for dir in "${DIRS[@]}"; do
-    if [ ! -d "$dir" ]; then
-        mkdir -p "$dir"
-        echo "  Created: $dir"
-    else
-        echo "  Already exists: $dir"
-    fi
-done
-
-echo -e "${GREEN}Workspace structure ready.${NC}"
-
-# Update package list
+# ---- Update package list ----
 echo ""
 echo "Updating package list..."
 sudo apt update -qq
-echo -e "${GREEN}Package list updated.${NC}"
+log "Package list updated"
 
-# Install useful tools
+# ---- Upgrade existing packages ----
 echo ""
-echo "Installing tools..."
-sudo apt install -y -qq \
-    curl \
-    wget \
-    git \
-    tree \
-    htop \
+echo "Upgrading installed packages..."
+sudo apt upgrade -y -qq
+log "System packages upgraded"
+
+# ---- Install toolset (idempotent — apt skips already-installed packages) ----
+echo ""
+echo "Installing VOH standard toolset..."
+
+PACKAGES=(
+    curl
+    wget
+    git
+    tree
+    htop
     unzip
+    jq
+    net-tools
+    dnsutils
+    nmap
+    tmux
+    build-essential
+    python3
+    python3-pip
+)
 
-echo -e "${GREEN}Tools installed.${NC}"
+for pkg in "${PACKAGES[@]}"; do
+    if dpkg -l "$pkg" &>/dev/null && dpkg -l "$pkg" | grep -q "^ii"; then
+        log_skip "$pkg already installed"
+    else
+        if sudo apt install -y -qq "$pkg"; then
+            log "$pkg installed"
+        else
+            log_err "$pkg failed to install"
+        fi
+    fi
+done
 
-# Summary
+# ---- Clean up ----
+echo ""
+echo "Cleaning up..."
+sudo apt autoremove -y -qq
+sudo apt clean
+log "Cleanup complete"
+
+# ---- Summary ----
 echo ""
 echo "================================="
 echo -e "${GREEN}Setup complete.${NC}"
-echo "Your VOH Academy workspace is ready at: $HOME/voh-academy"
 echo ""
-echo "Run 'tree ~/voh-academy' to see the full structure."
+echo "Installed tool versions:"
+echo "  curl:   $(curl --version | head -1)"
+echo "  git:    $(git --version)"
+echo "  python: $(python3 --version)"
+echo "  jq:     $(jq --version)"
 ```
 
 Save and exit: `Ctrl + O`, `Enter`, `Ctrl + X`.
@@ -198,14 +208,14 @@ Save and exit: `Ctrl + O`, `Enter`, `Ctrl + X`.
 Before you can run a script, you need to give it execute permission:
 
 ```bash
-chmod +x ~/voh-academy/scripts/voh-setup.sh
+chmod +x ~/voh-cloud-prog/session-02E/scripts/voh-setup.sh
 ```
 
 `chmod` changes file permissions. `+x` adds the execute permission. You will learn permissions in depth in Phase 2.
 
 Run the script:
 ```bash
-bash ~/voh-academy/scripts/voh-setup.sh
+bash ~/voh-cloud-prog/session-02E/scripts/voh-setup.sh
 ```
 
 Read the output carefully. You should see each directory being checked and tools being installed.
@@ -226,24 +236,16 @@ which tree
 which htop
 ```
 
-Each should print a path like `/usr/bin/curl`. If any print nothing, the tool was not installed — re-run the script or install it manually:
+Each should print a path like `/usr/bin/curl`. If any print nothing, the tool was not installed, re-run the script or install it manually:
 
 ```bash
 sudo apt install -y curl
 ```
 
-Use `tree` to see your full workspace structure visually:
-```bash
-tree ~/voh-academy
-```
-
-If tree is installed, you will see a clean visual tree of all your directories and files.
-
----
 
 #### Part 6 — Add the bin Directory to PATH
 
-You created a `~/voh-academy/bin/` directory for your own scripts. Add it to your PATH so you can run scripts from there by name.
+You created a `~/voh-cloud-prog/bin/` directory for your own scripts. Add it to your PATH so you can run scripts from there by name.
 
 Open `.bashrc`:
 ```bash
@@ -253,7 +255,7 @@ nano ~/.bashrc
 Find your VOH Academy section and add this line inside it:
 
 ```bash
-export PATH="$HOME/voh-academy/bin:$PATH"
+export PATH="$HOME/voh-cloud-prog/bin:$PATH"
 ```
 
 Save and reload:
@@ -270,8 +272,8 @@ The first entry should now be your `bin` directory.
 
 Copy your setup script into `bin/` and rename it so it is easy to call:
 ```bash
-cp ~/voh-academy/scripts/voh-setup.sh ~/voh-academy/bin/voh-setup
-chmod +x ~/voh-academy/bin/voh-setup
+cp ~/voh-cloud-prog/session-02E/scripts/voh-setup.sh ~/voh-cloud-prog/bin/voh-setup
+chmod +x ~/voh-cloud-prog/bin/voh-setup
 ```
 
 Now test running it by name from anywhere:
@@ -289,7 +291,7 @@ It should run from `/tmp` because the shell finds it in your `bin/` directory vi
 Create a report documenting what you did in this session. This is a habit you will keep for the entire program — writing up what you built and what you learned.
 
 ```bash
-nano ~/voh-academy/notes/session-06-report.md
+nano ~/voh-cloud-prog/session-02E/session-report.md
 ```
 
 Write the following, filling in your own answers:
@@ -370,3 +372,5 @@ You now have the foundation to attempt the **LPI Linux Essentials (LE-1)** certi
 ---
 
 *VOH Academy — Zero to Cloud Architect | Phase 1: Foundation*
+
+

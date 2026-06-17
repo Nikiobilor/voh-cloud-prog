@@ -1,10 +1,10 @@
 # VOH Academy — Phase 1: Foundation
-## Session 05: Your Shell — Environment Variables, PATH, and Aliases
+## Session: Your Shell — Environment Variables, PATH, and Aliases
 
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 05: Shell Basics and Environment Variables](https://www.youtube.com/@VOHAcademy)
+> **YouTube:** [VOH Academy: Shell Basics and Environment Variables](https://youtu.be/6rOyGhLgtS8)
 > Watch the video first, then return here to do the lab.
 
 ---
@@ -13,7 +13,7 @@
 
 A senior engineer at VOH pulls you aside before standup:
 
-> *"I noticed you are typing full paths every time you run a command. Let me show you how the shell actually works — once you understand environment variables and the PATH, you will stop doing that. You will also set up aliases so your most common commands take half the keystrokes. This is how we all work here."*
+> *"I noticed you are typing full paths every time you run a command. Let me show you how the shell actually works, once you understand environment variables and the PATH, you will stop doing that. You will also set up aliases so your most common commands take half the keystrokes. This is how we all work here."*
 
 ---
 
@@ -21,7 +21,7 @@ A senior engineer at VOH pulls you aside before standup:
 
 - What a shell is and what bash is
 - What environment variables are and how to use them
-- How the PATH works — how Linux finds commands
+- How the PATH works, how Linux finds commands
 - How to create aliases for commands you use often
 - How to make your customisations permanent using `.bashrc`
 
@@ -39,7 +39,7 @@ There are other shells — `zsh`, `fish`, `sh` — but bash is what you will fin
 
 #### What Are Environment Variables?
 
-Environment variables are named values that the shell keeps in memory. They hold information about the system and your session — things like who you are, where your home directory is, what language your system uses, and where to find programs.
+Environment variables are named values that the shell keeps in memory. They hold information about the system and your session, things like who you are, where your home directory is, what language your system uses, and where to find programs.
 
 Every program you run can read these variables. They are the way the shell and programs share context with each other.
 
@@ -62,7 +62,7 @@ When you install a new program, it gets placed in one of these directories. That
 Open your WSL terminal:
 
 ```bash
-cd ~/voh-academy
+cd ~/voh-cloud-prog
 ```
 
 ---
@@ -94,12 +94,6 @@ echo $PWD
 `PATH` — the list of directories Linux searches for programs
 `PWD` — your current directory (same as `pwd`)
 
-Print the PATH in a readable format, one directory per line:
-```bash
-echo $PATH | tr ':' '\n'
-```
-
-`tr ':' '\n'` replaces each `:` with a newline character, making the list readable.
 
 ---
 
@@ -120,7 +114,7 @@ This variable exists only in your current terminal session. If you open a new te
 Set a few more that you will use throughout the program:
 ```bash
 export VOH_PROJECT=voh-infra
-export VOH_DIR=~/voh-academy/projects/voh-infra
+export VOH_DIR=~/voh-cloud-prog/projects/voh-infra
 ```
 
 Test them:
@@ -138,7 +132,6 @@ Notice that `ls $VOH_DIR` works — the shell expands the variable before runnin
 When you type a command, use `which` to see exactly which file the shell is running:
 
 ```bash
-which ls
 which bash
 which nano
 which python3
@@ -146,7 +139,6 @@ which python3
 
 Use `type` for more detail:
 ```bash
-type ls
 type cd
 type echo
 ```
@@ -173,19 +165,19 @@ ll
 
 Create more aliases:
 ```bash
-alias voh='cd ~/voh-academy'
-alias configs='cd ~/voh-academy/projects/voh-infra/configs'
-alias docs='cd ~/voh-academy/projects/voh-infra/docs'
+alias voh='cd ~/voh-cloud-prog'
+alias configs='cd ~/voh-cloud-prog/projects/voh-infra/configs'
+alias docs='cd ~/voh-cloud-prog/projects/voh-infra/docs'
 ```
 
 Test them:
 ```bash
 cd /tmp
 voh
-pwd
+configs
 ```
 
-You should be back in `~/voh-academy`.
+You should be back in `~/voh-cloud-prog`.
 
 List all your current aliases:
 ```bash
@@ -222,15 +214,15 @@ Add this block at the end. Type it out carefully:
 # Environment variables
 export VOH_ENV=development
 export VOH_PROJECT=voh-infra
-export VOH_DIR=~/voh-academy/projects/voh-infra
+export VOH_DIR=~/voh-cloud-prog/projects/voh-infra
 
 # Navigation aliases
 alias ll='ls -lah'
 alias la='ls -A'
-alias voh='cd ~/voh-academy'
-alias configs='cd ~/voh-academy/projects/voh-infra/configs'
-alias scripts='cd ~/voh-academy/projects/voh-infra/scripts'
-alias docs='cd ~/voh-academy/projects/voh-infra/docs'
+alias voh='cd ~/voh-cloud-prog'
+alias configs='cd ~/voh-cloud-prog/projects/voh-infra/configs'
+alias scripts='cd ~/voh-cloud-prog/projects/voh-infra/scripts'
+alias docs='cd ~/voh-cloud-prog/projects/voh-infra/docs'
 
 # Safety aliases (ask before overwriting)
 alias cp='cp -i'
@@ -278,8 +270,6 @@ Run a command from history by its number (replace 42 with an actual number from 
 !42
 ```
 
-Search history interactively: press `Ctrl + R`, then start typing part of a command. The shell will show the most recent match. Press `Ctrl + R` again to cycle through older matches. Press `Enter` to run it.
-
 ---
 
 #### Part 7 — Check Your Shell Session
@@ -288,18 +278,16 @@ See how long your shell has been running and what processes are active:
 ```bash
 ps
 ```
+yes > /dev/null &
+sleep 3
+ps
+
+kill %1
 
 See all running processes:
 ```bash
 ps aux | head -20
 ```
-
-See your current shell and its parent:
-```bash
-ps -p $$ -o pid,ppid,cmd
-```
-
-`$$` is a special variable that holds the PID (process ID) of the current shell.
 
 ---
 
@@ -334,3 +322,5 @@ Session 06: Phase 1 Capstone — you will put everything together by setting up 
 ---
 
 *VOH Academy — Zero to Cloud Architect | Phase 1: Foundation*
+
+
