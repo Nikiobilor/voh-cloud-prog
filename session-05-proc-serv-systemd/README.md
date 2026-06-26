@@ -4,7 +4,7 @@
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 05: Processes and Services](https://www.youtube.com/@VOHAcademy)
+> **YouTube:** [VOH Academy — Session 05: Processes and Services]https://youtu.be/L24kn0GjMhE
 > Watch the video first, then return here to do the lab.
 
 ---
