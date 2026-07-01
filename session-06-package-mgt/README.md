@@ -4,14 +4,14 @@
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 09: Package Management](https://www.youtube.com/@VOHAcademy)
+> **YouTube:** [VOH Academy — Session 09: Package Management]https://youtu.be/z02-mDmMG0w
 > Watch the video first, then return here to do the lab.
 
 ---
 
 ### The VOH Story So Far
 
-> *"We are standardising our dev servers. Every engineer needs to be able to install, remove, upgrade, and audit software confidently — and know where packages actually come from. We also need someone to investigate why one of our servers has an outdated version of a tool that is causing compatibility issues. That is your ticket today."*
+> *"We are standardising our dev servers. Every engineer needs to be able to install, remove, upgrade, and audit software confidently, and know where packages actually come from. We also need someone to investigate why one of our servers has an outdated version of a tool that is causing compatibility issues. That is your ticket today."*
 
 ---
 
@@ -41,7 +41,7 @@ Linux does this differently. A **package manager** is a tool that:
 - Lets you cleanly remove software, including its dependencies
 - Verifies packages are not tampered with using cryptographic signatures
 
-Ubuntu uses **APT** (Advanced Package Tool). You already used it in Session 02 and Session 06 without knowing the details — now you will understand what is actually happening.
+Ubuntu uses **APT** (Advanced Package Tool). You already used it in Session 02 and Session 06 without knowing the details, now you will understand what is actually happening.
 
 #### apt vs apt-get vs dpkg
 
@@ -59,7 +59,7 @@ There are three layers here:
 
 A **repository** (or "repo") is a server that hosts packages. Your system has a list of repositories it trusts, stored in `/etc/apt/sources.list` and `/etc/apt/sources.list.d/`.
 
-When you run `apt update`, your system contacts every repository in that list and downloads an updated catalogue of what is available — it does not install anything yet, it just refreshes the list.
+When you run `apt update`, your system contacts every repository in that list and downloads an updated catalogue of what is available, it does not install anything yet, it just refreshes the list.
 
 When you run `apt install`, it looks through that catalogue, finds the package, and downloads it from the repository.
 
@@ -123,7 +123,7 @@ Search for a package before installing it:
 apt search "json"
 ```
 
-This searches package names and descriptions. The output can be long — pipe it through `less`:
+This searches package names and descriptions. The output can be long, pipe it through `less`:
 ```bash
 apt search "json" | less
 ```
@@ -135,14 +135,14 @@ Get detailed information about a specific package before installing:
 apt show jq
 ```
 
-This tells you the version, size, dependencies, and a description — without installing anything.
+This tells you the version, size, dependencies, and a description, without installing anything.
 
 Now install it:
 ```bash
 sudo apt install -y jq
 ```
 
-`jq` is a tool for working with JSON data from the command line — you will use it extensively once you start working with AWS CLI output in Phase 4.
+`jq` is a tool for working with JSON data from the command line, you will use it extensively once you start working with AWS CLI output in Phase 4.
 
 Confirm it installed and check its version:
 ```bash
@@ -255,7 +255,7 @@ sudo apt-mark unhold jq
 
 Not everything is in Ubuntu's default repositories. Sometimes you download a `.deb` file directly from a vendor's website and install it manually.
 
-Download a real example — the GitHub CLI tool's official `.deb` package (you will use this tool in Phase 3):
+Download a real example, the GitHub CLI tool's official `.deb` package (you will use this tool in Phase 3):
 
 ```bash
 curl -L -o /tmp/gh.deb https://github.com/cli/cli/releases/download/v2.55.0/gh_2.55.0_linux_amd64.deb
