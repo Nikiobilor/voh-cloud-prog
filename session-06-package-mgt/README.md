@@ -1,10 +1,10 @@
 # VOH Academy — Phase 2: Linux Core
-## Session 09: Package Management — apt, Sources, and Software Versions
+## Session 06: Package Management — apt, Sources, and Software Versions
 
 ---
 
 ### Watch Before You Start
-> **YouTube:** [VOH Academy — Session 09: Package Management]https://youtu.be/z02-mDmMG0w
+> **YouTube:** [VOH Academy — Session 06: Package Management]https://youtu.be/z02-mDmMG0w
 > Watch the video first, then return here to do the lab.
 
 ---
@@ -285,13 +285,13 @@ This is the pattern you will use anytime official `apt` repositories do not have
 #### Part 9 — Document the Investigation
 
 ```bash
-nano ~/voh-academy/projects/voh-infra/docs/ticket-009-package-audit.md
+nano ~/voh-academy/projects/voh-infra/docs/ticket-006-package-audit.md
 ```
 
 Write:
 
 ```markdown
-# Ticket VOH-009: Package Version Audit
+# Ticket VOH-006: Package Version Audit
 
 ## Request
 Investigate outdated tool causing compatibility issues. Establish version control practices for packages going forward.
